@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>Seattle Development Map</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
+  <style>
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+  </style>
+</head>
+
+
+
+<body>
+  <div id="map"></div>
+  <div class="map-overlay" id="sidebar"></div>
+
+
+  <script>
+    mapboxgl.accessToken =
+      'pk.eyJ1Ijoia2V2b2dyYXBoeSIsImEiOiJja3dhNWo2YjUyZ2V6MnFtbndndHhsYzF5In0.r9-h3pU6NGSjtbmv0ADErg';
+
+    const map = new mapboxgl.Map({
+      container: 'map', // container ID
+      style: 'mapbox://styles/mapbox/light-v10', // style URL
+      zoom: 10.5, // starting zoom
+      center: [-122.33, 47.614] // starting center
+    });
+  </script>
+</body>
+</html>
