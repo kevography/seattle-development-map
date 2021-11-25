@@ -32,10 +32,70 @@
 
     const map = new mapboxgl.Map({
       container: 'map', // container ID
+      // CHANGE TO CUSTOM
       style: 'mapbox://styles/mapbox/light-v10', // style URL
       zoom: 10.5, // starting zoom
       center: [-122.33, 47.614] // starting center
     });
+
+    //geojson async function
+    async function geojsonFetch() {
+      //load data
+      let response, sfh_sales, housing_units;
+      response = await fetch('assets/sfh_mfh_units_2006-2015.geojson');
+      housing_units = await response.json();
+      response = await fetch('assets/sfh_saleprices_censustract_2006-2015.geojson')
+      sfh_sales = await response.json();
+
+      //map loading
+      map.on('load', () => {
+        //create default filters *to be implemented*
+        let filterYearUnits = ['==', ['number', ['get', 'YR_BUILT']], 2015];
+        let filterYearTracts =['==', ['number', ['get', 'YR_BUILT']], 2015];
+
+        //add source for sale prices by census tract
+        map.addSource('sfh_sales',{
+          type: 'geojson',
+          data: sfh_sales
+        });//end sale price source
+
+        //add sales price layer
+        map.addLayer({
+          'id': 'sfh_sales_layer',
+          'type': 'fill',
+          'source': 'sfh_sales',
+          //paint style to be implemented
+          'paint': {
+            'fill-color': '#1B7670',
+            'fill-outline-color': '#6D6D71',
+            'fill-opacity': 0.2,
+          }
+        });//end of sales price layer
+
+        // add source for housing units
+        map.addSource('housing_units', {
+            type: 'geojson',
+            data: housing_units
+        }); //end of sourcing housing units
+        // add layer for housing units
+        map.addLayer({
+          'id': 'housing_units_layer',
+          'type': 'fill',
+          'source': 'housing_units',
+          //paint style to be implemented
+          /*'paint': {
+            ''
+          }*/
+        }); // end of housing units layer func
+
+
+      }); //end of map.on
+
+
+    } // end of geojsonFetch
+    geojsonFetch();
+
+
   </script>
 </body>
 </html>
