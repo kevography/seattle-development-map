@@ -7,6 +7,13 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
   <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        text-align: justify;
+        text-justify: inter-word;
+    }
     #map {
         position: absolute;
         top: 0;
@@ -16,6 +23,22 @@
         width: 100%;
         height: 100%;
     }
+    #sidebar {
+        position: absolute;
+        margin: 10px;
+        width: 240px;
+        background-color: white;
+        padding: 10px 20px;
+    }
+    h1 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+    h2 {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 10px;
+    }
   </style>
 </head>
 
@@ -23,7 +46,22 @@
 
 <body>
   <div id="map"></div>
-  <div class="map-overlay" id="sidebar"></div>
+  <div  id="sidebar">
+    <h1>Housing Developments and Single Family Housing Sale Prices</h1>
+    <p>
+      Data Sources Here
+    </p>
+    <div class="section">
+      <!--Implement gradient legend of price here-->
+    </div>
+    <div class="section">
+      <!--Implement vertical legend of land use here-->
+    </div>
+    <div class="section">
+      <h2>Year: <label id="active-year">2015</label></h2>
+      <input autocomplete="off" id="year_slider" class="row" type="range" min="2006" max="2015" value="2015" step="1"/>
+    </div>
+  </div>
 
 
   <script>
@@ -56,7 +94,7 @@
 
         //add sales price layer
         map.addLayer({
-          'id': 'sfh_sales_layer',
+          'id': 'sfh_sales',
           'type': 'fill',
           'source': {
             type: 'geojson',
@@ -73,10 +111,10 @@
               109, '#caeac3',
               219, '#7bc87c',
               328, '#2a924a',
-              548, '#00441b'
+              547, '#00441b'
             ],
             'fill-outline-color': '#3f3f3f',
-            'fill-opacity': 0.65
+            'fill-opacity': 0.75
           },
           'filter': ['all', filterYear]
         });//end of sales price layer
@@ -84,7 +122,7 @@
 
         // add layer for housing units
         map.addLayer({
-          'id': 'housing_units_layer',
+          'id': 'housing_units',
           'type': 'fill',
           'source': {
               type: 'geojson',
@@ -110,7 +148,7 @@
 
         // add layer for housing units as points
         map.addLayer({
-          'id': 'point_units_layer',
+          'id': 'point_units',
           'type': 'circle',
           'source': {
               type: 'geojson',
@@ -131,15 +169,27 @@
               'base': 3.5,
               'stops': [
                 [10.5, 3.5],
-                [13.5, 0]
+                [15, 0]
               ]
             },
             'circle-opacity': 0.9
           },
           'filter': ['all', filterYear]
         }); // end of housing units layer func
+        //update year filter when slider is dragged
+        document.getElementById('year_slider').addEventListener('input', (event)=> {
+          const year = parseInt(event.target.value);
+
+          //update all layers
+          filterYear = ['==', ['number', ['get', 'YEAR']], year];
+          map.setFilter('sfh_sales', ['all', filterYear]);
+          map.setFilter('housing_units', ['all', filterYear]);
+          map.setFilter('point_units', ['all', filterYear]);
 
 
+          //update active year in sidebar
+          document.getElementById('active-year').innerText = year;
+        });// end of slider functionality
       }); //end of map.on
 
 
