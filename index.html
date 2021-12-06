@@ -11,8 +11,6 @@
         margin: 0;
         padding: 0;
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        text-align: justify;
-        text-justify: inter-word;
     }
     #map {
         position: absolute;
@@ -30,15 +28,78 @@
         background-color: white;
         padding: 10px 20px;
     }
+    .section {
+      margin-bottom: 20px;
+    }
+    .row {
+        height: 12px;
+        width: 100%;
+    }
+    .colors {
+        background: linear-gradient(to right,
+          #f7fcf5,
+          #caeac3,
+          #7bc87c,
+          #2a924a,
+          #00441b);
+        margin-bottom: 5px;
+    }
+
     h1 {
         font-size: 20px;
         line-height: 30px;
+        text-align: justify;
+        text-justify: inter-word;
     }
     h2 {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 20px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
+    .h {
+        width: 20.6%;
+        display: inline-block;
+        text-align: right;
+    }
+    .zero {
+      width: 10%;
+      display: inline-block;
+      text-align: left;
+    }
+    .legend-container {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    .legend-item {
+      display: inline-block;
+    }
+    .color-block{
+      height: 13px;
+      width: 13px;
+      border-radius: 3px;
+    }
+    .sfh {
+      background-color: #0031E7;
+    }
+    .mfh {
+      background-color: #F70000;
+    }
+    .cmu {
+      background-color: #00F700;
+    }
+    .ind {
+      background-color: #FF7900;
+    }
+    .pub {
+      background-color: #F0E132;
+    }
+    .vac {
+      background-color: #8F3985;
+    }
+    .unk {
+      background-color: #000000;
+    }
+
   </style>
 </head>
 
@@ -47,15 +108,62 @@
 <body>
   <div id="map"></div>
   <div  id="sidebar">
-    <h1>Housing Developments and Single Family Housing Sale Prices</h1>
+    <h1>Housing Developments and Single Family Housing Sale Prices 2006 - 2015</h1>
     <p>
-      Data Sources Here
+      Data Sources:
+    </p>
+    <p>
+      <a href="https://data-seattlecitygis.opendata.arcgis.com/datasets/SeattleCityGIS::single-family-home-sale-prices-by-census-tract">Single Family Home Sale Prices by Census Tract</a>
+       in Seattle
+    </p>
+    <p>
+      <a href="https://data-seattlecitygis.opendata.arcgis.com/datasets/single-and-multi-family-residential">Single and Multi-Family Residential Units</a> in Seattle
     </p>
     <div class="section">
-      <!--Implement gradient legend of price here-->
+      <h2>Single Family Home Sales</h2>
+      <h2>Price/Sq.Ft (USD)</h2>
+      <div class="row colors"></div>
+      <div class="row labels">
+        <div class="zero">0*</div>
+        <div class="h">109</div>
+        <div class="h">219</div>
+        <div class="h">328</div>
+        <div class="h">548</div>
+      </div>
+      <br>
+      <p>*No houses sold in selected year</p>
     </div>
     <div class="section">
       <!--Implement vertical legend of land use here-->
+      <h2>Land Use</h2>
+      <div class="legend-container">
+        <div class="legend-item color-block sfh"></div>
+        <div class="legend-item label">Single Family Housing</div>
+      </div>
+      <div class="legend-container">
+        <div class="legend-item color-block mfh"></div>
+        <div class="legend-item label">Multi-Family Housing</div>
+      </div>
+      <div class="legend-container">
+        <div class="legend-item color-block cmu"></div>
+        <div class="legend-item label">Commercial/Mixed-Use</div>
+      </div>
+      <div class="legend-container">
+        <div class="legend-item color-block ind"></div>
+        <div class="legend-item label">Industrial</div>
+      </div>
+      <div class="legend-container">
+        <div class="legend-item color-block pub"></div>
+        <div class="legend-item label">Public Facilities/Utilities</div>
+      </div>
+      <div class="legend-container">
+        <div class="legend-item color-block vac"></div>
+        <div class="legend-item label">Vacant</div>
+      </div>
+      <div class="legend-container">
+        <div class="legend-item color-block unk"></div>
+        <div class="legend-item label">Unknown</div>
+      </div>
     </div>
     <div class="section">
       <h2>Year: <label id="active-year">2015</label></h2>
@@ -73,7 +181,7 @@
       // CHANGE TO CUSTOM
       style: 'mapbox://styles/mapbox/light-v10', // style URL
       zoom: 10.5, // starting zoom
-      center: [-122.33, 47.614] // starting center
+      center: [-122.32, 47.614] // starting center
     });
 
     //geojson async function
@@ -137,7 +245,7 @@
               'Major Institution And Public Facilities/Utilities', '#F0E132',
               'Vacant', '#8F3985',
               'Unknown', '#000000',
-              '#CCCCCC'
+              '#000000'
             ],
             'fill-outline-color': '#3f3f3f',
             'fill-opacity': 0.4
