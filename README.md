@@ -18,22 +18,26 @@ This web map was conceptualized as a way to analyze the relationship between dev
 
 Housing units and their construction year was chosen to illustrate changes in housing supply from year to year. These data points were further classified according to their intended land use. This was helpful in allowing the user to also analyze broader trends in development patterns such as a reduction in multi-family residential units constructed in the immediate wake of the 2008 housing crisis . This was chosen as an additional subject of analysis as zoning and land use laws are cities' and local governments' main methods of regulating housing and urban space. These tools directly affect housing supply and demand within the city and are especially important when it comes to home pricing.
 
-### Application URL: https://kevography.github.io/seattle-development-map/
+#### Application URL: https://kevography.github.io/seattle-development-map/
 
 ## Primary Functions
-
 The most important function of this web map is the users' ability to select a year via a slider. Changing the value dynamically changes the data that is displayed on the map. Critically, it ties the changes to both of the main datasets to a single input making it so that the user can easily change with a single control and not match multiple sliders.
+
+![Image highlighting slider and some datapoints](img/devmap-img2.jpg)
 
 Another important function that I implemented was a system that from afar located each construction with a circle that when zoomed in dissolved into the polygon rendering of the properties. This made it easier to locate and read the different developments from afar without sacrificing a more accurate view of the housing units when zoomed in.
 
+![Housing units from afar represented as points](img/devmap-img3.jpg)
+
+![The map zoomed in showing the housing units represented as polygons](img/devmap-img4.jpg)
 ### Data Sources
+
+![The homepage of the Seattle Open GeoData Portal](img/devmap-img5.jpg)
 
 Full data sources (i.e. not constrained to a range of years) were discovered using the [Seattle Open GeoData Portal](https://data-seattlecitygis.opendata.arcgis.com/) on the ArcGIS platform. The full datasets used can be found under [Single Family Home Sale Prices by Census Tract](https://data-seattlecitygis.opendata.arcgis.com/datasets/SeattleCityGIS::single-family-home-sale-prices-by-census-tract) and [Single and Multi-Family Residential Units](https://data-seattlecitygis.opendata.arcgis.com/datasets/single-and-multi-family-residential).
 
 ### Applied Libraries
-
 The thematic, data-driven layers and the base map were constructed using Mapbox GL JS and Mapbox Studios respectively. Data and assets are hosted online using the GitHub web services. QGIS was used to compile and process the data to make it web-appropriate by slimming down file sizes. Dr. Bo Zhao of the University of Washington provided the base template for the map.
 
 ### Acknowledgements
-
 I first want to acknowledge that by setting this project in Seattle I am documenting land and projects that rest on the tradition lands of the Duwamish People, the first people of Seattle. In documenting land uses and constructing better futures, we have a responsibility to both the land and the people whose land we live on, past and present, and to ensure their voices are included in our imagined futures. I would also like to thank the City of Seattle, without whose data this project would not be possible. Finally, thanks to the Geography 495 teaching team, Bo Zhao, Steven Bao, and the University of Washington whose support made this project possible.
